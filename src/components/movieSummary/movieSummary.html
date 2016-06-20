@@ -1,0 +1,66 @@
+  <div class="row movie-summary">
+    <div class="col-md-3 text-center movie-summary--poster">
+      <img ng-class="{ 'cursor-pointer': !$ctrl.view.showMoreInfo }" ng-click="!$ctrl.view.showMoreInfo ? $ctrl.actions.goToMovieDetails() : $event.preventDefault()" ng-src="{{ $ctrl.movie.posters.original }}" />
+    </div>
+
+    <div class="col-md-9 movie-summary--info">
+      <h3>{{ $ctrl.movie.title }}</h3>
+
+      <dl ng-repeat="(type, value) in $ctrl.movie.ratings">
+        <dt>{{ type | titleize }}</dt>
+        <dd>{{ value | formatRating }}</dd>
+      </dl>
+
+      <dl>
+        <dt>Year</dt>
+        <dd>{{ $ctrl.movie.year }}</dd>
+      </dl>
+
+      <dl>
+        <dt>MPAA Rating</dt>
+        <dd>{{ $ctrl.movie.mpaa_rating }}</dd>
+      </dl>
+
+      <dl>
+        <dt>Synopsis</dt>
+        <dd>{{ $ctrl.movie.synopsis }}</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div ng-if="$ctrl.view.showMoreInfo">
+    <div class="row push-down">
+      <div class="col-md-12">
+        <fieldset>
+          <legend>More Info</legend>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div><label>Links</label></div>
+        <a target="_blank" ng-href="{{ $ctrl.movie.links.alternate }}">
+          Official Rotten Tomatoes Page
+        </a>
+      </div>
+
+      <div class="col-md-3">
+        <div><label>Release Dates</label></div>
+        <div ng-class="{'push-slightly-down': !$first }" ng-repeat="(type, date) in $ctrl.movie.release_dates">
+          <div><em>{{ type | titleize }}:</em></div>
+          <div>{{ date }}</div>
+        </div>
+      </div>
+
+      <div class="col-md-3" ng-if="$ctrl.movie.runtime">
+        <div><label>Runtime</label></div>
+        {{ $ctrl.movie | runtime }}
+      </div>
+
+      <div class="col-md-3">
+        <div><label>Abridged Cast</label></div>
+        <cast-and-characters list="$ctrl.movie.abridged_cast"></cast-and-characters>
+      </div>
+    </div>
+  </div>
