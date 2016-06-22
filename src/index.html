@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html>
 
   <head>
     <base href="/">
     <link rel="stylesheet" href="style.css">
-    <script src="/node_modules/angular/angular.js"></script>
-    <script src="/node_modules/angular-resource/angular-resource.js"></script>
-    <script src="/node_modules/lodash/lodash.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="angular-resource/angular-resource.js"></script>
+    <script src="lodash/lodash.js"></script>
+
+    <script src="core-js/client/shim.min.js"></script>
+    <script src="zone.js/dist/zone.js"></script>
+    <script src="reflect-metadata/Reflect.js"></script>
+    <script src="systemjs/dist/system.src.js"></script>
+
+    <script src="systemjs.config.js"></script>
+
     <script src="/support/angular_1_router.js"></script>
     <script src="filters.js"></script>
     <script src="services.js"></script>
@@ -16,7 +24,10 @@
     <script src="/components/movieSummary/movieSummary.js"></script>
     <script src="/components/movies/movies.js"></script>
     <script src="/components/nav/nav.js"></script>
-    <script src="/components/app.js"></script>
+
+    <script>
+      System.import('components/app');
+    </script>
   </head>
 
   <body>
