@@ -1,15 +1,22 @@
+import { HTTP_PROVIDERS } from '@angular/http';
 import { upgradeAdapter } from '../upgrade_adapter';
+import { MoviesApi, RentalsApi } from '../services/services';
+
+upgradeAdapter.addProvider(HTTP_PROVIDERS);
+upgradeAdapter.addProvider(MoviesApi);
+upgradeAdapter.addProvider(RentalsApi);
 
 angular.module('app', [
   'ngComponentRouter',
   'ngResource',
   'app.filters',
-  'app.services',
-  'app.values',
   'app.components'
 ])
 
 .value('$routerRootComponent', 'app')
+
+.service('MoviesApi', upgradeAdapter.downgradeNg2Provider(MoviesApi))
+.service('RentalsApi', upgradeAdapter.downgradeNg2Provider(RentalsApi))
 
 .component('app', {
   template: '<ng-outlet><ng-outlet>',
