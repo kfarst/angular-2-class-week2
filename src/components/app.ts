@@ -1,6 +1,10 @@
 import { HTTP_PROVIDERS } from '@angular/http';
 import { upgradeAdapter } from '../upgrade_adapter';
 import { MoviesApi, RentalsApi } from '../services/services';
+import { TitleizePipe } from '../pipes/titleize';
+import { FormatRatingPipe } from '../pipes/format_rating';
+import { ImdbUrlPipe } from '../pipes/imdb_url';
+import { RuntimePipe } from '../pipes/runtime';
 
 upgradeAdapter.addProvider(HTTP_PROVIDERS);
 upgradeAdapter.addProvider(MoviesApi);
@@ -9,7 +13,6 @@ upgradeAdapter.addProvider(RentalsApi);
 angular.module('app', [
   'ngComponentRouter',
   'ngResource',
-  'app.filters',
   'app.components'
 ])
 
@@ -17,6 +20,18 @@ angular.module('app', [
 
 .service('MoviesApi', upgradeAdapter.downgradeNg2Provider(MoviesApi))
 .service('RentalsApi', upgradeAdapter.downgradeNg2Provider(RentalsApi))
+.filter('titleize', function () {
+  return (new TitleizePipe()).transform;
+})
+.filter('formatRating', function () {
+  return (new FormatRatingPipe()).transform;
+})
+.filter('imdbUrl', function () {
+  return (new ImdbUrlPipe()).transform;
+})
+.filter('runtime', function () {
+  return (new RuntimePipe()).transform;
+})
 
 .component('app', {
   template: '<ng-outlet><ng-outlet>',
