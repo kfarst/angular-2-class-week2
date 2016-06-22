@@ -1,22 +1,31 @@
-System.register(['../upgrade_adapter'], function(exports_1, context_1) {
+System.register(['@angular/http', '../upgrade_adapter', '../services/services'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var upgrade_adapter_1;
+    var http_1, upgrade_adapter_1, services_1;
     return {
         setters:[
+            function (http_1_1) {
+                http_1 = http_1_1;
+            },
             function (upgrade_adapter_1_1) {
                 upgrade_adapter_1 = upgrade_adapter_1_1;
+            },
+            function (services_1_1) {
+                services_1 = services_1_1;
             }],
         execute: function() {
+            upgrade_adapter_1.upgradeAdapter.addProvider(http_1.HTTP_PROVIDERS);
+            upgrade_adapter_1.upgradeAdapter.addProvider(services_1.MoviesApi);
+            upgrade_adapter_1.upgradeAdapter.addProvider(services_1.RentalsApi);
             angular.module('app', [
                 'ngComponentRouter',
                 'ngResource',
                 'app.filters',
-                'app.services',
-                'app.values',
                 'app.components'
             ])
                 .value('$routerRootComponent', 'app')
+                .service('MoviesApi', upgrade_adapter_1.upgradeAdapter.downgradeNg2Provider(services_1.MoviesApi))
+                .service('RentalsApi', upgrade_adapter_1.upgradeAdapter.downgradeNg2Provider(services_1.RentalsApi))
                 .component('app', {
                 template: '<ng-outlet><ng-outlet>',
                 bindings: { $router: '<' },

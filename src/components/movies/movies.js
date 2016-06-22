@@ -33,9 +33,8 @@ angular.module('app.components.movies', [])
 
       return $injector.get(`${$filter('titleize')(next.routeData.data.resourceType)}Api`).
         get({ type: ctrl.view.type.replace('-', '_') }).
-        $promise.
-        then(function (response) {
-          ctrl.movies = response.movies;
+        then(function (movies) {
+          ctrl.movies = movies;
         });
     };
 
@@ -59,9 +58,8 @@ angular.module('app.components.movies', [])
 
       return $injector.get(`${$filter('titleize')(next.routeData.data.resourceType)}Api`).
         get({ type: ctrl.view.type.replace('-', '_') }).
-        $promise.
-        then(function (response) {
-          ctrl.movie = _.find(response.movies, { id: next.params.movieID });
+        then(function (movies) {
+          ctrl.movie = _.find(movies, { id: next.params.movieID });
         });
     };
   }
