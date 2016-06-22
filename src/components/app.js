@@ -1,7 +1,7 @@
-System.register(['@angular/http', '../upgrade_adapter', '../services/services', '../pipes/titleize', '../pipes/format_rating', '../pipes/imdb_url', '../pipes/runtime'], function(exports_1, context_1) {
+System.register(['@angular/http', '../upgrade_adapter', '../services/services', '../pipes/titleize', '../pipes/format_rating', '../pipes/imdb_url', '../pipes/runtime', './cast_and_characters/cast_and_characters'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var http_1, upgrade_adapter_1, services_1, titleize_1, format_rating_1, imdb_url_1, runtime_1;
+    var http_1, upgrade_adapter_1, services_1, titleize_1, format_rating_1, imdb_url_1, runtime_1, cast_and_characters_1;
     return {
         setters:[
             function (http_1_1) {
@@ -24,6 +24,9 @@ System.register(['@angular/http', '../upgrade_adapter', '../services/services', 
             },
             function (runtime_1_1) {
                 runtime_1 = runtime_1_1;
+            },
+            function (cast_and_characters_1_1) {
+                cast_and_characters_1 = cast_and_characters_1_1;
             }],
         execute: function() {
             upgrade_adapter_1.upgradeAdapter.addProvider(http_1.HTTP_PROVIDERS);
@@ -49,6 +52,7 @@ System.register(['@angular/http', '../upgrade_adapter', '../services/services', 
                 .filter('runtime', function () {
                 return (new runtime_1.RuntimePipe()).transform;
             })
+                .directive('castAndCharacters', upgrade_adapter_1.upgradeAdapter.downgradeNg2Component(cast_and_characters_1.CastAndCharacters))
                 .component('app', {
                 template: '<ng-outlet><ng-outlet>',
                 bindings: { $router: '<' },

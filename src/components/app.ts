@@ -5,6 +5,7 @@ import { TitleizePipe } from '../pipes/titleize';
 import { FormatRatingPipe } from '../pipes/format_rating';
 import { ImdbUrlPipe } from '../pipes/imdb_url';
 import { RuntimePipe } from '../pipes/runtime';
+import { CastAndCharacters } from './cast_and_characters/cast_and_characters';
 
 upgradeAdapter.addProvider(HTTP_PROVIDERS);
 upgradeAdapter.addProvider(MoviesApi);
@@ -32,6 +33,7 @@ angular.module('app', [
 .filter('runtime', function () {
   return (new RuntimePipe()).transform;
 })
+.directive('castAndCharacters', upgradeAdapter.downgradeNg2Component(CastAndCharacters))
 
 .component('app', {
   template: '<ng-outlet><ng-outlet>',
