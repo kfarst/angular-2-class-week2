@@ -1,66 +1,48 @@
-angular.module('app.components.movies', [])
-.component('movies', {
-  template: '<ng-outlet><ng-outlet>',
-  bindings: { $router: '<' },
-  $routeConfig: [
-    { component: 'moviesList', name: 'MoviesList', path: '/:type' },
-    { component: 'movieDetails', name: 'MovieDetails', path: '/:type/:movieID' }
-  ],
-  controller: function () {
-    function setResourceType (next) {
-      next.routeData.data['resourceType'] = next.urlPath;
+System.register(['@angular/core', '@angular/router', '../movies_list/movies_list', '../movie_details/movie_details'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
+    var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __metadata = (this && this.__metadata) || function (k, v) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    };
+    var core_1, router_1, movies_list_1, movie_details_1;
+    var Movies;
+    return {
+        setters:[
+            function (core_1_1) {
+                core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (movies_list_1_1) {
+                movies_list_1 = movies_list_1_1;
+            },
+            function (movie_details_1_1) {
+                movie_details_1 = movie_details_1_1;
+            }],
+        execute: function() {
+            Movies = (function () {
+                function Movies(router) {
+                    this.router = router;
+                }
+                Movies = __decorate([
+                    core_1.Component({
+                        selector: 'movies',
+                        template: '<router-outlet></router-outlet>',
+                        directives: [router_1.ROUTER_DIRECTIVES, movies_list_1.MoviesList, movie_details_1.MovieDetails]
+                    }), 
+                    __metadata('design:paramtypes', [router_1.Router])
+                ], Movies);
+                return Movies;
+            }());
+            exports_1("Movies", Movies);
+        }
     }
-
-    this.$routerOnActivate = function (next) {
-      setResourceType(next);
-    };
-
-    this.$routerOnReuse = function (next) {
-      setResourceType(next);
-    };
-  }
-})
-
-.component('moviesList', {
-  templateUrl: 'components/movies/moviesList.html',
-  bindings: { $router: '<' },
-  controller: function ($injector, $filter) {
-    var ctrl = this;
-    ctrl.view = {};
-
-    this.$routerOnActivate = function (next) {
-      ctrl.view.type = next.params.type;
-
-      return $injector.get(`${$filter('titleize')(next.routeData.data.resourceType)}Api`).
-        get({ type: ctrl.view.type.replace('-', '_') }).
-        then(function (movies) {
-          ctrl.movies = movies;
-        });
-    };
-
-    this.actions = {
-      goToDetails: function (movie) {
-        ctrl.$router.navigate(['MovieDetails', { type: ctrl.view.type, movieID: movie.id }]);
-      }
-    };
-  }
-})
-
-.component('movieDetails', {
-  templateUrl: 'components/movies/movieDetails.html',
-  bindings: { $router: '<' },
-  controller: function ($injector, $filter) {
-    var ctrl = this;
-    ctrl.view = {};
-
-    this.$routerOnActivate = function (next) {
-      ctrl.view.type = next.params.type;
-
-      return $injector.get(`${$filter('titleize')(next.routeData.data.resourceType)}Api`).
-        get({ type: ctrl.view.type.replace('-', '_') }).
-        then(function (movies) {
-          ctrl.movie = _.find(movies, { id: next.params.movieID });
-        });
-    };
-  }
 });
+//# sourceMappingURL=movies.js.map

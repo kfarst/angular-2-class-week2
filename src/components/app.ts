@@ -1,53 +1,16 @@
-import { HTTP_PROVIDERS } from '@angular/http';
-import { upgradeAdapter } from '../upgrade_adapter';
-import { MoviesApi, RentalsApi } from '../services/services';
-import { TitleizePipe } from '../pipes/titleize';
-import { FormatRatingPipe } from '../pipes/format_rating';
-import { ImdbUrlPipe } from '../pipes/imdb_url';
-import { RuntimePipe } from '../pipes/runtime';
-import { CastAndCharacters } from './cast_and_characters/cast_and_characters';
+import { Component, OnInit } from '@angular/core';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
+import { Nav } from './nav/nav';
 
-upgradeAdapter.addProvider(HTTP_PROVIDERS);
-upgradeAdapter.addProvider(MoviesApi);
-upgradeAdapter.addProvider(RentalsApi);
-
-angular.module('app', [
-  'ngComponentRouter',
-  'ngResource',
-  'app.components'
-])
-
-.value('$routerRootComponent', 'app')
-
-.service('MoviesApi', upgradeAdapter.downgradeNg2Provider(MoviesApi))
-.service('RentalsApi', upgradeAdapter.downgradeNg2Provider(RentalsApi))
-.filter('titleize', function () {
-  return (new TitleizePipe()).transform;
+@Component({
+  selector: 'app',
+  template: '<nav></nav><router-outlet><router-outlet>',
+  directives: [ROUTER_DIRECTIVES, Nav]
 })
-.filter('formatRating', function () {
-  return (new FormatRatingPipe()).transform;
-})
-.filter('imdbUrl', function () {
-  return (new ImdbUrlPipe()).transform;
-})
-.filter('runtime', function () {
-  return (new RuntimePipe()).transform;
-})
-.directive('castAndCharacters', upgradeAdapter.downgradeNg2Component(CastAndCharacters))
+export class App implements OnInit {
+  constructor (private router: Router) {}
 
-.component('app', {
-  template: '<ng-outlet><ng-outlet>',
-  bindings: { $router: '<' },
-  $routeConfig: [
-    { component: 'app', name: 'App', path: '/', useAsDefault: true },
-    { component: 'movies', name: 'Movies', path: '/movies/...' },
-    { component: 'movies', name: 'Rentals', path: '/rentals/...' }
-  ],
-  controller: function () {
-    this.$routerOnActivate = function () {
-      this.$router.navigate(['./Movies', 'MoviesList', { type: 'upcoming' }]);
-    };
+  ngOnInit () {
+    this.router.navigate(['/movies', 'upcoming']);
   }
-});
-
-upgradeAdapter.bootstrap(document.body, ['app']);
+}

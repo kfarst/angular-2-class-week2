@@ -1,73 +1,47 @@
-System.register(['@angular/http', '../upgrade_adapter', '../services/services', '../pipes/titleize', '../pipes/format_rating', '../pipes/imdb_url', '../pipes/runtime', './cast_and_characters/cast_and_characters'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', './nav/nav'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var http_1, upgrade_adapter_1, services_1, titleize_1, format_rating_1, imdb_url_1, runtime_1, cast_and_characters_1;
+    var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __metadata = (this && this.__metadata) || function (k, v) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    };
+    var core_1, router_1, nav_1;
+    var App;
     return {
         setters:[
-            function (http_1_1) {
-                http_1 = http_1_1;
+            function (core_1_1) {
+                core_1 = core_1_1;
             },
-            function (upgrade_adapter_1_1) {
-                upgrade_adapter_1 = upgrade_adapter_1_1;
+            function (router_1_1) {
+                router_1 = router_1_1;
             },
-            function (services_1_1) {
-                services_1 = services_1_1;
-            },
-            function (titleize_1_1) {
-                titleize_1 = titleize_1_1;
-            },
-            function (format_rating_1_1) {
-                format_rating_1 = format_rating_1_1;
-            },
-            function (imdb_url_1_1) {
-                imdb_url_1 = imdb_url_1_1;
-            },
-            function (runtime_1_1) {
-                runtime_1 = runtime_1_1;
-            },
-            function (cast_and_characters_1_1) {
-                cast_and_characters_1 = cast_and_characters_1_1;
+            function (nav_1_1) {
+                nav_1 = nav_1_1;
             }],
         execute: function() {
-            upgrade_adapter_1.upgradeAdapter.addProvider(http_1.HTTP_PROVIDERS);
-            upgrade_adapter_1.upgradeAdapter.addProvider(services_1.MoviesApi);
-            upgrade_adapter_1.upgradeAdapter.addProvider(services_1.RentalsApi);
-            angular.module('app', [
-                'ngComponentRouter',
-                'ngResource',
-                'app.components'
-            ])
-                .value('$routerRootComponent', 'app')
-                .service('MoviesApi', upgrade_adapter_1.upgradeAdapter.downgradeNg2Provider(services_1.MoviesApi))
-                .service('RentalsApi', upgrade_adapter_1.upgradeAdapter.downgradeNg2Provider(services_1.RentalsApi))
-                .filter('titleize', function () {
-                return (new titleize_1.TitleizePipe()).transform;
-            })
-                .filter('formatRating', function () {
-                return (new format_rating_1.FormatRatingPipe()).transform;
-            })
-                .filter('imdbUrl', function () {
-                return (new imdb_url_1.ImdbUrlPipe()).transform;
-            })
-                .filter('runtime', function () {
-                return (new runtime_1.RuntimePipe()).transform;
-            })
-                .directive('castAndCharacters', upgrade_adapter_1.upgradeAdapter.downgradeNg2Component(cast_and_characters_1.CastAndCharacters))
-                .component('app', {
-                template: '<ng-outlet><ng-outlet>',
-                bindings: { $router: '<' },
-                $routeConfig: [
-                    { component: 'app', name: 'App', path: '/', useAsDefault: true },
-                    { component: 'movies', name: 'Movies', path: '/movies/...' },
-                    { component: 'movies', name: 'Rentals', path: '/rentals/...' }
-                ],
-                controller: function () {
-                    this.$routerOnActivate = function () {
-                        this.$router.navigate(['./Movies', 'MoviesList', { type: 'upcoming' }]);
-                    };
+            App = (function () {
+                function App(router) {
+                    this.router = router;
                 }
-            });
-            upgrade_adapter_1.upgradeAdapter.bootstrap(document.body, ['app']);
+                App.prototype.ngOnInit = function () {
+                    this.router.navigate(['/movies', 'upcoming']);
+                };
+                App = __decorate([
+                    core_1.Component({
+                        selector: 'app',
+                        template: '<nav></nav><router-outlet><router-outlet>',
+                        directives: [router_1.ROUTER_DIRECTIVES, nav_1.Nav]
+                    }), 
+                    __metadata('design:paramtypes', [router_1.Router])
+                ], App);
+                return App;
+            }());
+            exports_1("App", App);
         }
     }
 });
