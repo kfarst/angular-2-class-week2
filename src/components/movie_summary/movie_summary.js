@@ -48,7 +48,7 @@ System.register(['@angular/core', '@angular/router', '../cast_and_characters/cas
                         showMoreInfo: this.showMoreInfo
                     };
                     this.actions = {
-                        goToMovieDetails: function () { return _this.router.navigate([_this.movieDetailRoute()]); }
+                        goToMovieDetails: function () { return _this.router.navigate(_this.movieDetailRoute()); }
                     };
                 }
                 MovieSummary.prototype.movieDetailRoute = function () {

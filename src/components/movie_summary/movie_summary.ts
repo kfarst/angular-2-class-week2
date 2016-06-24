@@ -32,7 +32,7 @@ export class MovieSummary {
   }
 
   actions: Object = {
-    goToMovieDetails: () => this.router.navigate([this.movieDetailRoute()])
+    goToMovieDetails: () => this.router.navigate(this.movieDetailRoute())
   }
 }
 

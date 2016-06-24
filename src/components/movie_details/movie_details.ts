@@ -22,10 +22,15 @@ export class MovieDetails implements OnInit {
   }
 
   ngOnInit () {
-    this.categoryType = this.route.params.value['type'];
-    this.apiEndpoint().get({ type: this.categoryType }).then(movies => {
-      this.movie = movies.find(movie => {
-        return movie.id === this.route.params.value['id']
+    this.
+      route.
+      params.
+      subscribe(params => { 
+      this.categoryType =  params['type'];
+      this.apiEndpoint().get({ type: this.categoryType }).then(movies => {
+        this.movie = movies.find(movie => {
+          return movie.id === params['id']
+        });
       });
     });
   }

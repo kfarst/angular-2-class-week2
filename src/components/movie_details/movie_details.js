@@ -41,10 +41,15 @@ System.register(['@angular/core', '../../services/services', '../movie_summary/m
                 };
                 MovieDetails.prototype.ngOnInit = function () {
                     var _this = this;
-                    this.categoryType = this.route.params.value['type'];
-                    this.apiEndpoint().get({ type: this.categoryType }).then(function (movies) {
-                        _this.movie = movies.find(function (movie) {
-                            return movie.id === _this.route.params.value['id'];
+                    this.
+                        route.
+                        params.
+                        subscribe(function (params) {
+                        _this.categoryType = params['type'];
+                        _this.apiEndpoint().get({ type: _this.categoryType }).then(function (movies) {
+                            _this.movie = movies.find(function (movie) {
+                                return movie.id === params['id'];
+                            });
                         });
                     });
                 };

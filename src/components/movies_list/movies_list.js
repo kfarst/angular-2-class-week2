@@ -41,8 +41,13 @@ System.register(['@angular/core', '../../services/services', '@angular/router', 
                 };
                 MoviesList.prototype.ngOnInit = function () {
                     var _this = this;
-                    this.categoryType = this.route.params.value['type'];
-                    this.apiEndpoint().get({ type: this.categoryType }).then(function (movies) { return _this.movies = movies; });
+                    this.
+                        route.
+                        params.
+                        subscribe(function (params) {
+                        _this.categoryType = params['type'];
+                        _this.apiEndpoint().get({ type: _this.categoryType }).then(function (movies) { return _this.movies = movies; });
+                    });
                 };
                 MoviesList = __decorate([
                     core_1.Component({

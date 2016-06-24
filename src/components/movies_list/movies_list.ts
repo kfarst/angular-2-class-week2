@@ -23,8 +23,13 @@ export class MoviesList implements OnInit {
   }
 
   ngOnInit () {
-    this.categoryType = this.route.params.value['type'];
-    this.apiEndpoint().get({ type: this.categoryType }).then(movies => this.movies = movies);
+    this.
+      route.
+      params.
+      subscribe(params => {
+      this.categoryType = params['type'];
+      this.apiEndpoint().get({ type: this.categoryType }).then(movies => this.movies = movies);
+    });
   }
 }
 
