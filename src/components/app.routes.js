@@ -21,10 +21,10 @@ System.register(['./app', './movies/movies', './movies_list/movies_list', './mov
             exports_1("routes", routes = [
                 { path: '', component: app_1.App },
                 {
-                    path: 'movies', component: movies_1.Movies,
+                    path: ':resourceType', component: movies_1.Movies,
                     children: [
-                        { path: ':type', component: movies_list_1.MoviesList },
-                        { path: ':type/:id', component: movie_details_1.MovieDetails }
+                        { path: ':categoryType', component: movies_list_1.MoviesList },
+                        { path: ':categoryType/:id', component: movie_details_1.MovieDetails }
                     ]
                 }
             ]);

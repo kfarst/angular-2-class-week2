@@ -1,4 +1,4 @@
-System.register(['@angular/core', '../../services/services', '@angular/router', '../../pipes/titleize', '../movie_summary/movie_summary'], function(exports_1, context_1) {
+System.register(['@angular/core', '../../services/services', '@angular/router', '../../pipes/titleize', '../movie_summary/movie_summary', '../../services/app_settings'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '../../services/services', '@angular/router', 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, services_1, router_1, titleize_1, movie_summary_1;
+    var core_1, services_1, router_1, titleize_1, movie_summary_1, app_settings_1;
     var MoviesList;
     return {
         setters:[
@@ -28,6 +28,9 @@ System.register(['@angular/core', '../../services/services', '@angular/router', 
             },
             function (movie_summary_1_1) {
                 movie_summary_1 = movie_summary_1_1;
+            },
+            function (app_settings_1_1) {
+                app_settings_1 = app_settings_1_1;
             }],
         execute: function() {
             MoviesList = (function () {
@@ -35,9 +38,12 @@ System.register(['@angular/core', '../../services/services', '@angular/router', 
                     this.moviesApi = moviesApi;
                     this.rentalsApi = rentalsApi;
                     this.route = route;
+                    this.settings = app_settings_1.AppSettings.getInstance();
                 }
                 MoviesList.prototype.apiEndpoint = function () {
-                    return window.location.pathname.match('movies') ? this.moviesApi : this.rentalsApi;
+                    return this.settings.resourceType.match('movies') ?
+                        this.moviesApi :
+                        this.rentalsApi;
                 };
                 MoviesList.prototype.ngOnInit = function () {
                     var _this = this;
@@ -45,8 +51,10 @@ System.register(['@angular/core', '../../services/services', '@angular/router', 
                         route.
                         params.
                         subscribe(function (params) {
-                        _this.categoryType = params['type'];
-                        _this.apiEndpoint().get({ type: _this.categoryType }).then(function (movies) { return _this.movies = movies; });
+                        _this.categoryType = params['categoryType'];
+                        _this.apiEndpoint().
+                            get({ type: _this.categoryType }).
+                            then(function (movies) { return _this.movies = movies; });
                     });
                 };
                 MoviesList = __decorate([

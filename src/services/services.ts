@@ -20,8 +20,10 @@ export interface Movie {
 }
 
 class BaseResource {
+  settings: AppSettings = AppSettings.getInstance();
+
   url(resourceType: string, categoryType: string): string {
-    return `/api/public/v1.0/lists/${resourceType}/${categoryType}.json?apikey=${AppSettings.API_KEY}`;
+    return `/api/public/v1.0/lists/${resourceType}/${categoryType}.json?apikey=${this.settings.API_KEY}`;
   }
 
   protected handleError(error: any) {

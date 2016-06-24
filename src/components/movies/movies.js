@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router', '../movies_list/movies_list', '../movie_details/movie_details'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', '../movies_list/movies_list', '../movie_details/movie_details', '../../services/app_settings'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router', '../movies_list/movies_list
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, movies_list_1, movie_details_1;
+    var core_1, router_1, movies_list_1, movie_details_1, app_settings_1;
     var Movies;
     return {
         setters:[
@@ -25,19 +25,31 @@ System.register(['@angular/core', '@angular/router', '../movies_list/movies_list
             },
             function (movie_details_1_1) {
                 movie_details_1 = movie_details_1_1;
+            },
+            function (app_settings_1_1) {
+                app_settings_1 = app_settings_1_1;
             }],
         execute: function() {
             Movies = (function () {
-                function Movies(router) {
-                    this.router = router;
+                function Movies(route) {
+                    this.route = route;
                 }
+                Movies.prototype.ngOnInit = function () {
+                    var settings = app_settings_1.AppSettings.getInstance();
+                    this.
+                        route.
+                        params.
+                        subscribe(function (params) {
+                        settings.resourceType = params['resourceType'];
+                    });
+                };
                 Movies = __decorate([
                     core_1.Component({
                         selector: 'movies',
                         template: '<router-outlet></router-outlet>',
                         directives: [router_1.ROUTER_DIRECTIVES, movies_list_1.MoviesList, movie_details_1.MovieDetails]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router])
+                    __metadata('design:paramtypes', [router_1.ActivatedRoute])
                 ], Movies);
                 return Movies;
             }());

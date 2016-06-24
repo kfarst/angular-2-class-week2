@@ -32,9 +32,10 @@ System.register(['@angular/core', './app_settings', '@angular/http', 'rxjs/add/o
         execute: function() {
             BaseResource = (function () {
                 function BaseResource() {
+                    this.settings = app_settings_1.AppSettings.getInstance();
                 }
                 BaseResource.prototype.url = function (resourceType, categoryType) {
-                    return "/api/public/v1.0/lists/" + resourceType + "/" + categoryType + ".json?apikey=" + app_settings_1.AppSettings.API_KEY;
+                    return "/api/public/v1.0/lists/" + resourceType + "/" + categoryType + ".json?apikey=" + this.settings.API_KEY;
                 };
                 BaseResource.prototype.handleError = function (error) {
                     console.error('An error occurred', error);

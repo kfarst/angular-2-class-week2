@@ -3,6 +3,7 @@ import { Movie, MoviesApi, RentalsApi } from '../../services/services';
 import { MovieSummary } from '../movie_summary/movie_summary';
 import { TitleizePipe } from '../../pipes/titleize';
 import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
+import { AppSettings } from '../../services/app_settings';
 
 @Component({
   selector: 'movie-details',
@@ -14,20 +15,29 @@ import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
 export class MovieDetails implements OnInit {
   movie: Movie;
   categoryType: string;
+  settings: AppSettings = AppSettings.getInstance();
 
-  constructor (private moviesApi: MoviesApi, private rentalsApi: RentalsApi, private route: ActivatedRoute) { }
+  constructor (
+    private moviesApi: MoviesApi,
+    private rentalsApi: RentalsApi,
+    private route: ActivatedRoute
+  ) {}
 
   private apiEndpoint (): any {
-    return window.location.pathname.match('movies') ? this.moviesApi : this.rentalsApi;
+    return this.settings.resourceType.match('movies') ?
+      this.moviesApi :
+      this.rentalsApi;
   }
 
   ngOnInit () {
     this.
       route.
       params.
-      subscribe(params => { 
-      this.categoryType =  params['type'];
-      this.apiEndpoint().get({ type: this.categoryType }).then(movies => {
+      subscribe(params => {
+      this.categoryType =  params['categoryType'];
+      this.apiEndpoint().
+        get({ type: this.categoryType }).
+        then(movies => {
         this.movie = movies.find(movie => {
           return movie.id === params['id']
         });

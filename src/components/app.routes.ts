@@ -7,10 +7,10 @@ import {MovieDetails} from './movie_details/movie_details';
 export const routes: RouterConfig = [
   { path: '', component: App },
   {
-    path: 'movies', component: Movies,
+    path: ':resourceType', component: Movies,
     children: [
-      { path: ':type', component: MoviesList },
-      { path: ':type/:id', component: MovieDetails }
+      { path: ':categoryType', component: MoviesList },
+      { path: ':categoryType/:id', component: MovieDetails }
     ]
   }
 ];
