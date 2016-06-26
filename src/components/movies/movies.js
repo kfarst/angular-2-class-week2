@@ -40,12 +40,15 @@ System.register(['@angular/core', '@angular/router', '../movies_list/movies_list
                 }
                 Movies.prototype.ngOnInit = function () {
                     var _this = this;
-                    this.
+                    this.paramsSub = this.
                         route.
                         params.
                         subscribe(function (params) {
                         _this.settings.resourceType = params['resourceType'];
                     });
+                };
+                Movies.prototype.ngOnDestroy = function () {
+                    this.paramsSub.unsubscribe();
                 };
                 Movies = __decorate([
                     core_1.Component({

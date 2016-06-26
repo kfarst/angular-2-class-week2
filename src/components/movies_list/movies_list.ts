@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Movie, MoviesApi, RentalsApi } from '../../services/services';
-import { ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
+import { ActivatedRoute, ROUTER_DIRECTIVES, Params } from '@angular/router';
 import { TitleizePipe } from '../../pipes/titleize';
 import { Movies } from '../movies/movies';
 import { MovieSummary } from '../movie_summary/movie_summary';
@@ -13,9 +13,10 @@ import { AppSettings } from '../../services/app_settings';
   directives: [MovieSummary, ROUTER_DIRECTIVES],
   pipes: [TitleizePipe]
 })
-export class MoviesList implements OnInit {
+export class MoviesList implements OnInit, OnDestroy {
   movies: Movie[];
   categoryType: string;
+  paramsSub: any;
 
   constructor (
     private moviesApi: MoviesApi,
@@ -31,7 +32,7 @@ export class MoviesList implements OnInit {
   }
 
   ngOnInit () {
-    this.
+    this.paramsSub = this.
       route.
       params.
       subscribe(params => {
@@ -40,6 +41,10 @@ export class MoviesList implements OnInit {
         get({ type: this.categoryType }).
         then(movies => this.movies = movies);
     });
+  }
+
+  ngOnDestroy () {
+    this.paramsSub.unsubscribe();
   }
 }
 

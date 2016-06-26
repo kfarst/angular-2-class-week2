@@ -47,7 +47,7 @@ System.register(['@angular/core', '../../services/services', '@angular/router', 
                 };
                 MoviesList.prototype.ngOnInit = function () {
                     var _this = this;
-                    this.
+                    this.paramsSub = this.
                         route.
                         params.
                         subscribe(function (params) {
@@ -56,6 +56,9 @@ System.register(['@angular/core', '../../services/services', '@angular/router', 
                             get({ type: _this.categoryType }).
                             then(function (movies) { return _this.movies = movies; });
                     });
+                };
+                MoviesList.prototype.ngOnDestroy = function () {
+                    this.paramsSub.unsubscribe();
                 };
                 MoviesList = __decorate([
                     core_1.Component({

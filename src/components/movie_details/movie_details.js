@@ -47,7 +47,7 @@ System.register(['@angular/core', '../../services/services', '../movie_summary/m
                 };
                 MovieDetails.prototype.ngOnInit = function () {
                     var _this = this;
-                    this.
+                    this.paramsSub = this.
                         route.
                         params.
                         subscribe(function (params) {
@@ -63,6 +63,9 @@ System.register(['@angular/core', '../../services/services', '../movie_summary/m
                 };
                 MovieDetails.prototype.goBack = function () {
                     window.history.back();
+                };
+                MovieDetails.prototype.ngOnDestroy = function () {
+                    this.paramsSub.unsubscribe();
                 };
                 MovieDetails = __decorate([
                     core_1.Component({
