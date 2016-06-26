@@ -69,7 +69,6 @@ System.register(['@angular/core', '../../services/services', '../movie_summary/m
                         selector: 'movie-details',
                         templateUrl: 'components/movie_details/movie_details.html',
                         directives: [router_1.ROUTER_DIRECTIVES, movie_summary_1.MovieSummary],
-                        providers: [services_1.MoviesApi, services_1.RentalsApi],
                         pipes: [titleize_1.TitleizePipe]
                     }), 
                     __metadata('design:paramtypes', [services_1.MoviesApi, services_1.RentalsApi, app_settings_1.AppSettings, router_1.ActivatedRoute])

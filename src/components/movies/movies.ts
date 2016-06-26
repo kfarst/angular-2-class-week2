@@ -3,11 +3,12 @@ import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
 import { MoviesList } from '../movies_list/movies_list';
 import { MovieDetails } from '../movie_details/movie_details';
 import { AppSettings } from '../../services/app_settings';
+import { MoviesApi, RentalsApi } from '../../services/services';
 
 @Component({
   selector: 'movies',
   template: '<router-outlet></router-outlet>',
-  providers: [AppSettings],
+  providers: [AppSettings, MoviesApi, RentalsApi],
   directives: [ROUTER_DIRECTIVES, MoviesList, MovieDetails]
 })
 export class Movies implements OnInit {

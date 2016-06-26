@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router', '../movies_list/movies_list', '../movie_details/movie_details', '../../services/app_settings'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', '../movies_list/movies_list', '../movie_details/movie_details', '../../services/app_settings', '../../services/services'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router', '../movies_list/movies_list
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, movies_list_1, movie_details_1, app_settings_1;
+    var core_1, router_1, movies_list_1, movie_details_1, app_settings_1, services_1;
     var Movies;
     return {
         setters:[
@@ -28,6 +28,9 @@ System.register(['@angular/core', '@angular/router', '../movies_list/movies_list
             },
             function (app_settings_1_1) {
                 app_settings_1 = app_settings_1_1;
+            },
+            function (services_1_1) {
+                services_1 = services_1_1;
             }],
         execute: function() {
             Movies = (function () {
@@ -48,7 +51,7 @@ System.register(['@angular/core', '@angular/router', '../movies_list/movies_list
                     core_1.Component({
                         selector: 'movies',
                         template: '<router-outlet></router-outlet>',
-                        providers: [app_settings_1.AppSettings],
+                        providers: [app_settings_1.AppSettings, services_1.MoviesApi, services_1.RentalsApi],
                         directives: [router_1.ROUTER_DIRECTIVES, movies_list_1.MoviesList, movie_details_1.MovieDetails]
                     }), 
                     __metadata('design:paramtypes', [router_1.ActivatedRoute, app_settings_1.AppSettings])

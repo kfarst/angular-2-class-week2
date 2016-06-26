@@ -9,7 +9,6 @@ import { AppSettings } from '../../services/app_settings';
   selector: 'movie-details',
   templateUrl: 'components/movie_details/movie_details.html',
   directives: [ROUTER_DIRECTIVES, MovieSummary],
-  providers: [MoviesApi, RentalsApi],
   pipes: [TitleizePipe]
 })
 export class MovieDetails implements OnInit {

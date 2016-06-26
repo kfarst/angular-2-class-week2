@@ -62,8 +62,7 @@ System.register(['@angular/core', '../../services/services', '@angular/router', 
                         selector: 'movies-list',
                         templateUrl: 'components/movies_list/movies_list.html',
                         directives: [movie_summary_1.MovieSummary, router_1.ROUTER_DIRECTIVES],
-                        pipes: [titleize_1.TitleizePipe],
-                        providers: [services_1.MoviesApi, services_1.RentalsApi]
+                        pipes: [titleize_1.TitleizePipe]
                     }), 
                     __metadata('design:paramtypes', [services_1.MoviesApi, services_1.RentalsApi, app_settings_1.AppSettings, router_1.ActivatedRoute])
                 ], MoviesList);

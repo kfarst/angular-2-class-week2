@@ -11,8 +11,7 @@ import { AppSettings } from '../../services/app_settings';
   selector: 'movies-list',
   templateUrl: 'components/movies_list/movies_list.html',
   directives: [MovieSummary, ROUTER_DIRECTIVES],
-  pipes: [TitleizePipe],
-  providers: [MoviesApi, RentalsApi]
+  pipes: [TitleizePipe]
 })
 export class MoviesList implements OnInit {
   movies: Movie[];
