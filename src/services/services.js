@@ -31,8 +31,8 @@ System.register(['@angular/core', './app_settings', '@angular/http', 'rxjs/add/o
             function (_1) {}],
         execute: function() {
             BaseResource = (function () {
-                function BaseResource() {
-                    this.settings = app_settings_1.AppSettings.getInstance();
+                function BaseResource(settings) {
+                    this.settings = settings;
                 }
                 BaseResource.prototype.url = function (resourceType, categoryType) {
                     return "/api/public/v1.0/lists/" + resourceType + "/" + categoryType + ".json?apikey=" + this.settings.API_KEY;
@@ -45,8 +45,8 @@ System.register(['@angular/core', './app_settings', '@angular/http', 'rxjs/add/o
             }());
             MoviesApi = (function (_super) {
                 __extends(MoviesApi, _super);
-                function MoviesApi(http) {
-                    _super.call(this);
+                function MoviesApi(http, settings) {
+                    _super.call(this, settings);
                     this.http = http;
                 }
                 MoviesApi.prototype.get = function (options) {
@@ -57,15 +57,15 @@ System.register(['@angular/core', './app_settings', '@angular/http', 'rxjs/add/o
                 };
                 MoviesApi = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [http_1.Http])
+                    __metadata('design:paramtypes', [http_1.Http, app_settings_1.AppSettings])
                 ], MoviesApi);
                 return MoviesApi;
             }(BaseResource));
             exports_1("MoviesApi", MoviesApi);
             RentalsApi = (function (_super) {
                 __extends(RentalsApi, _super);
-                function RentalsApi(http) {
-                    _super.call(this);
+                function RentalsApi(http, settings) {
+                    _super.call(this, settings);
                     this.http = http;
                 }
                 RentalsApi.prototype.get = function (options) {
@@ -76,7 +76,7 @@ System.register(['@angular/core', './app_settings', '@angular/http', 'rxjs/add/o
                 };
                 RentalsApi = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [http_1.Http])
+                    __metadata('design:paramtypes', [http_1.Http, app_settings_1.AppSettings])
                 ], RentalsApi);
                 return RentalsApi;
             }(BaseResource));

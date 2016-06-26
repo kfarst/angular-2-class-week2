@@ -7,19 +7,21 @@ import { AppSettings } from '../../services/app_settings';
 @Component({
   selector: 'movies',
   template: '<router-outlet></router-outlet>',
+  providers: [AppSettings],
   directives: [ROUTER_DIRECTIVES, MoviesList, MovieDetails]
 })
 export class Movies implements OnInit {
-  constructor (private route: ActivatedRoute) {}
+  constructor (
+    private route: ActivatedRoute,
+    private settings: AppSettings
+  ) {}
 
   ngOnInit () {
-    let settings = AppSettings.getInstance();
-
     this.
       route.
       params.
       subscribe(params => {
-      settings.resourceType = params['resourceType'];
+      this.settings.resourceType = params['resourceType'];
     });
   }
 }

@@ -15,11 +15,11 @@ import { AppSettings } from '../../services/app_settings';
 export class MovieDetails implements OnInit {
   movie: Movie;
   categoryType: string;
-  settings: AppSettings = AppSettings.getInstance();
 
   constructor (
     private moviesApi: MoviesApi,
     private rentalsApi: RentalsApi,
+    private settings: AppSettings,
     private route: ActivatedRoute
   ) {}
 

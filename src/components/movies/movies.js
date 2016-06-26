@@ -31,25 +31,27 @@ System.register(['@angular/core', '@angular/router', '../movies_list/movies_list
             }],
         execute: function() {
             Movies = (function () {
-                function Movies(route) {
+                function Movies(route, settings) {
                     this.route = route;
+                    this.settings = settings;
                 }
                 Movies.prototype.ngOnInit = function () {
-                    var settings = app_settings_1.AppSettings.getInstance();
+                    var _this = this;
                     this.
                         route.
                         params.
                         subscribe(function (params) {
-                        settings.resourceType = params['resourceType'];
+                        _this.settings.resourceType = params['resourceType'];
                     });
                 };
                 Movies = __decorate([
                     core_1.Component({
                         selector: 'movies',
                         template: '<router-outlet></router-outlet>',
+                        providers: [app_settings_1.AppSettings],
                         directives: [router_1.ROUTER_DIRECTIVES, movies_list_1.MoviesList, movie_details_1.MovieDetails]
                     }), 
-                    __metadata('design:paramtypes', [router_1.ActivatedRoute])
+                    __metadata('design:paramtypes', [router_1.ActivatedRoute, app_settings_1.AppSettings])
                 ], Movies);
                 return Movies;
             }());

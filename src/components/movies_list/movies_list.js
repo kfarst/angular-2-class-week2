@@ -34,11 +34,11 @@ System.register(['@angular/core', '../../services/services', '@angular/router', 
             }],
         execute: function() {
             MoviesList = (function () {
-                function MoviesList(moviesApi, rentalsApi, route) {
+                function MoviesList(moviesApi, rentalsApi, settings, route) {
                     this.moviesApi = moviesApi;
                     this.rentalsApi = rentalsApi;
+                    this.settings = settings;
                     this.route = route;
-                    this.settings = app_settings_1.AppSettings.getInstance();
                 }
                 MoviesList.prototype.apiEndpoint = function () {
                     return this.settings.resourceType.match('movies') ?
@@ -65,7 +65,7 @@ System.register(['@angular/core', '../../services/services', '@angular/router', 
                         pipes: [titleize_1.TitleizePipe],
                         providers: [services_1.MoviesApi, services_1.RentalsApi]
                     }), 
-                    __metadata('design:paramtypes', [services_1.MoviesApi, services_1.RentalsApi, router_1.ActivatedRoute])
+                    __metadata('design:paramtypes', [services_1.MoviesApi, services_1.RentalsApi, app_settings_1.AppSettings, router_1.ActivatedRoute])
                 ], MoviesList);
                 return MoviesList;
             }());

@@ -20,18 +20,7 @@ System.register(['@angular/core'], function(exports_1, context_1) {
         execute: function() {
             AppSettings = (function () {
                 function AppSettings() {
-                    if (!AppSettings.isCreating) {
-                        throw new Error("You can't call new in App Settings instances!");
-                    }
                 }
-                AppSettings.getInstance = function () {
-                    if (AppSettings.instance == null) {
-                        AppSettings.isCreating = true;
-                        AppSettings.instance = new AppSettings();
-                        AppSettings.isCreating = false;
-                    }
-                    return AppSettings.instance;
-                };
                 Object.defineProperty(AppSettings.prototype, "resourceType", {
                     get: function () {
                         return this._resourceType;
@@ -49,7 +38,6 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                     enumerable: true,
                     configurable: true
                 });
-                AppSettings.isCreating = false;
                 AppSettings = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])

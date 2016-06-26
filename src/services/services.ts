@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Injector } from '@angular/core';
 import { AppSettings } from './app_settings';
 import { Http } from '@angular/http';
 
@@ -20,7 +21,7 @@ export interface Movie {
 }
 
 class BaseResource {
-  settings: AppSettings = AppSettings.getInstance();
+  constructor(private settings: AppSettings) {}
 
   url(resourceType: string, categoryType: string): string {
     return `/api/public/v1.0/lists/${resourceType}/${categoryType}.json?apikey=${this.settings.API_KEY}`;
@@ -34,8 +35,8 @@ class BaseResource {
 
 @Injectable()
 export class MoviesApi extends BaseResource {
-  constructor(private http: Http) {
-    super();
+  constructor(private http: Http, settings: AppSettings) {
+    super(settings);
   }
 
   get(options: any): Promise<Movie[]> {
@@ -48,8 +49,8 @@ export class MoviesApi extends BaseResource {
 
 @Injectable()
 export class RentalsApi extends BaseResource {
-  constructor(private http: Http) {
-    super();
+  constructor(private http: Http, settings: AppSettings) {
+    super(settings);
   }
 
   get(options: any): Promise<Movie[]> {
