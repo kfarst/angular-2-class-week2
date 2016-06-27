@@ -1,4 +1,4 @@
-System.register(['@angular/core', './app_settings', '@angular/http', 'rxjs/add/operator/toPromise'], function(exports_1, context_1) {
+System.register(['@angular/core', './app_settings', 'rxjs/Rx', '@angular/http', 'rxjs/add/operator/map', 'rxjs/add/operator/catch'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['@angular/core', './app_settings', '@angular/http', 'rxjs/add/o
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, app_settings_1, http_1;
+    var core_1, app_settings_1, Rx_1, http_1;
     var BaseResource, MoviesApi, RentalsApi;
     return {
         setters:[
@@ -25,10 +25,14 @@ System.register(['@angular/core', './app_settings', '@angular/http', 'rxjs/add/o
             function (app_settings_1_1) {
                 app_settings_1 = app_settings_1_1;
             },
+            function (Rx_1_1) {
+                Rx_1 = Rx_1_1;
+            },
             function (http_1_1) {
                 http_1 = http_1_1;
             },
-            function (_1) {}],
+            function (_1) {},
+            function (_2) {}],
         execute: function() {
             BaseResource = (function () {
                 function BaseResource(settings) {
@@ -39,7 +43,7 @@ System.register(['@angular/core', './app_settings', '@angular/http', 'rxjs/add/o
                 };
                 BaseResource.prototype.handleError = function (error) {
                     console.error('An error occurred', error);
-                    return Promise.reject(error.message || error);
+                    return Rx_1.Observable.throw(error);
                 };
                 return BaseResource;
             }());
@@ -51,8 +55,7 @@ System.register(['@angular/core', './app_settings', '@angular/http', 'rxjs/add/o
                 }
                 MoviesApi.prototype.get = function (options) {
                     return this.http.get(this.url('movies', options.type.replace('-', '_'))).
-                        toPromise().
-                        then(function (response) { return response.json().movies; }).
+                        map(function (res) { return res.json(); }).
                         catch(this.handleError);
                 };
                 MoviesApi = __decorate([
@@ -70,8 +73,7 @@ System.register(['@angular/core', './app_settings', '@angular/http', 'rxjs/add/o
                 }
                 RentalsApi.prototype.get = function (options) {
                     return this.http.get(this.url('dvds', options.type.replace('-', '_'))).
-                        toPromise().
-                        then(function (response) { return response.json().movies; }).
+                        map(function (res) { return res.json(); }).
                         catch(this.handleError);
                 };
                 RentalsApi = __decorate([

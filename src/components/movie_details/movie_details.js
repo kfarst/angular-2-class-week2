@@ -54,8 +54,8 @@ System.register(['@angular/core', '../../services/services', '../movie_summary/m
                         _this.categoryType = params['categoryType'];
                         _this.apiEndpoint().
                             get({ type: _this.categoryType }).
-                            then(function (movies) {
-                            _this.movie = movies.find(function (movie) {
+                            subscribe(function (res) {
+                            _this.movie = res.movies.find(function (movie) {
                                 return movie.id === params['id'];
                             });
                         });

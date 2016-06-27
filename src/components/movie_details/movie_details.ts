@@ -37,8 +37,8 @@ export class MovieDetails implements OnInit, OnDestroy {
       this.categoryType =  params['categoryType'];
       this.apiEndpoint().
         get({ type: this.categoryType }).
-        then(movies => {
-        this.movie = movies.find(movie => {
+        subscribe(res => {
+        this.movie = res.movies.find(movie => {
           return movie.id === params['id']
         });
       });

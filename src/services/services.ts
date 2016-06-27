@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Injector } from '@angular/core';
 import { AppSettings } from './app_settings';
-import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import { Http, Response } from '@angular/http';
 
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 export interface Movie {
   id: number;
@@ -29,7 +31,7 @@ class BaseResource {
 
   protected handleError(error: any) {
     console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
+    return Observable.throw(error);
   }
 }
 
@@ -39,10 +41,9 @@ export class MoviesApi extends BaseResource {
     super(settings);
   }
 
-  get(options: any): Promise<Movie[]> {
+  get(options: any): Observable<Movie[]> {
     return this.http.get(this.url('movies', options.type.replace('-', '_'))).
-      toPromise().
-      then(response => response.json().movies).
+      map((res: Response) => res.json()).
       catch(this.handleError);
   }
 }
@@ -53,10 +54,9 @@ export class RentalsApi extends BaseResource {
     super(settings);
   }
 
-  get(options: any): Promise<Movie[]> {
+  get(options: any): Observable<Movie[]> {
     return this.http.get(this.url('dvds', options.type.replace('-', '_'))).
-      toPromise().
-      then(response => response.json().movies).
+      map((res: Response) => res.json()).
       catch(this.handleError);
   }
 }

@@ -54,7 +54,9 @@ System.register(['@angular/core', '../../services/services', '@angular/router', 
                         _this.categoryType = params['categoryType'];
                         _this.apiEndpoint().
                             get({ type: _this.categoryType }).
-                            then(function (movies) { return _this.movies = movies; });
+                            subscribe(function (res) {
+                            _this.movies = res.movies;
+                        });
                     });
                 };
                 MoviesList.prototype.ngOnDestroy = function () {
