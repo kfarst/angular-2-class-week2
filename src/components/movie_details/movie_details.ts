@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Movie, MoviesApi, RentalsApi } from '../../services/services';
 import { MovieSummary } from '../movie_summary/movie_summary';
 import { TitleizePipe } from '../../pipes/titleize';
@@ -12,6 +12,9 @@ import { AppSettings } from '../../services/app_settings';
   pipes: [TitleizePipe]
 })
 export class MovieDetails implements OnInit, OnDestroy {
+  @ViewChild(MovieSummary)
+  summary: MovieSummary;
+
   movie: Movie;
   categoryType: string;
   paramsSub: any;
@@ -27,6 +30,10 @@ export class MovieDetails implements OnInit, OnDestroy {
     return this.settings.resourceType.match('movies') ?
       this.moviesApi :
       this.rentalsApi;
+  }
+
+  showMoreInfo () {
+    setTimeout(_ => this.summary.view.showMoreInfo = true);
   }
 
   ngOnInit () {

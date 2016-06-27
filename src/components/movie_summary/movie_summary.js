@@ -43,14 +43,17 @@ System.register(['@angular/core', '@angular/router', '../cast_and_characters/cas
                 function MovieSummary(router) {
                     var _this = this;
                     this.router = router;
-                    this.showMoreInfo = false;
+                    this.viewCreated = new core_1.EventEmitter();
                     this.view = {
-                        showMoreInfo: this.showMoreInfo
+                        showMoreInfo: false
                     };
                     this.actions = {
                         goToMovieDetails: function () { return _this.router.navigate(_this.movieDetailRoute()); }
                     };
                 }
+                MovieSummary.prototype.ngAfterViewInit = function () {
+                    this.viewCreated.emit('event');
+                };
                 MovieSummary.prototype.movieDetailRoute = function () {
                     var movieType = window.location.pathname.match('movies') ? 'movies' : 'rentals';
                     return [("/" + movieType), this.categoryType, this.movie.id];
@@ -64,9 +67,9 @@ System.register(['@angular/core', '@angular/router', '../cast_and_characters/cas
                     __metadata('design:type', String)
                 ], MovieSummary.prototype, "categoryType", void 0);
                 __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', Boolean)
-                ], MovieSummary.prototype, "showMoreInfo", void 0);
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], MovieSummary.prototype, "viewCreated", void 0);
                 MovieSummary = __decorate([
                     core_1.Component({
                         selector: 'movie-summary',

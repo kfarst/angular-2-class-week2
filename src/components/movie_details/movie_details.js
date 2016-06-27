@@ -45,6 +45,10 @@ System.register(['@angular/core', '../../services/services', '../movie_summary/m
                         this.moviesApi :
                         this.rentalsApi;
                 };
+                MovieDetails.prototype.showMoreInfo = function () {
+                    var _this = this;
+                    setTimeout(function (_) { return _this.summary.view.showMoreInfo = true; });
+                };
                 MovieDetails.prototype.ngOnInit = function () {
                     var _this = this;
                     this.paramsSub = this.
@@ -67,6 +71,10 @@ System.register(['@angular/core', '../../services/services', '../movie_summary/m
                 MovieDetails.prototype.ngOnDestroy = function () {
                     this.paramsSub.unsubscribe();
                 };
+                __decorate([
+                    core_1.ViewChild(movie_summary_1.MovieSummary), 
+                    __metadata('design:type', movie_summary_1.MovieSummary)
+                ], MovieDetails.prototype, "summary", void 0);
                 MovieDetails = __decorate([
                     core_1.Component({
                         selector: 'movie-details',

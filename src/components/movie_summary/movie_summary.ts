@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { CastAndCharacters } from '../cast_and_characters/cast_and_characters';
 import { Movie } from '../../services/services';
@@ -14,16 +14,19 @@ import { KeysPipe } from '../../pipes/keys';
   directives: [ROUTER_DIRECTIVES, CastAndCharacters],
   pipes: [TitleizePipe, FormatRatingPipe, ImdbUrlPipe, RuntimePipe, KeysPipe]
 })
-export class MovieSummary {
+export class MovieSummary implements AfterViewInit {
   @Input() movie: Movie;
   @Input() categoryType: string;
-  @Input() showMoreInfo: boolean = false;
+  @Output() viewCreated = new EventEmitter();
 
   view: any = {
-    showMoreInfo: this.showMoreInfo
+    showMoreInfo: false
   };
 
-  constructor (private router: Router) {
+  constructor (private router: Router) {}
+
+  ngAfterViewInit () {
+    this.viewCreated.emit('event');
   }
 
   private movieDetailRoute (): (string | number)[] {
